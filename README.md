@@ -15,3 +15,5 @@ With Lunar Link installed, the mod can be hot-swapped without restarting the gam
 `BepInEx/hot/WhoLeftTheLightOn.dll`
 
 Do not leave another active copy in `BepInEx/plugins`. Use Lunar Link's F9 window to enable or reload the hot copy.
+
+Lunar Link can also report published GitHub releases in its Updates window.
