@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Website
+    url: https://handofhate.github.io/WhoLeftTheLightOn/
+    about: What it does, install, and how it works
+  - name: Wiki
+    url: https://github.com/handofhate/WhoLeftTheLightOn/wiki
+    about: Installing, using it, settings and troubleshooting
+  - name: Nexus Mods page
+    url: https://www.nexusmods.com/moonsweepers/mods/157
+    about: Downloads, posts and comments on Nexus
