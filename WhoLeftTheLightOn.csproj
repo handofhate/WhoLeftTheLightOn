@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>WhoLeftTheLightOn</AssemblyName>
+    <RootNamespace>WhoLeftTheLightOn</RootNamespace>
+    <RestoreIgnoreFailedSources>true</RestoreIgnoreFailedSources>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <MoonSweepersGameRoot Condition="'$(MoonSweepersGameRoot)' == ''">C:\Program Files (x86)\Steam\steamapps\common\Moon Sweepers</MoonSweepersGameRoot>
+    <BepInExCore>$(MoonSweepersGameRoot)\BepInEx\core</BepInExCore>
+    <InteropDir>$(MoonSweepersGameRoot)\BepInEx\interop</InteropDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="BepInEx.Core" HintPath="$(BepInExCore)\BepInEx.Core.dll" Private="false" />
+    <Reference Include="BepInEx.Unity.IL2CPP" HintPath="$(BepInExCore)\BepInEx.Unity.IL2CPP.dll" Private="false" />
+    <Reference Include="0Harmony" HintPath="$(BepInExCore)\0Harmony.dll" Private="false" />
+    <Reference Include="Il2CppInterop.Runtime" HintPath="$(BepInExCore)\Il2CppInterop.Runtime.dll" Private="false" />
+    <Reference Include="Il2Cppmscorlib" HintPath="$(InteropDir)\Il2Cppmscorlib.dll" Private="false" />
+    <Reference Include="Assembly-CSharp" HintPath="$(InteropDir)\Assembly-CSharp.dll" Private="false" />
+    <Reference Include="UnityEngine.CoreModule" HintPath="$(InteropDir)\UnityEngine.CoreModule.dll" Private="false" />
+  </ItemGroup>
+
+  <Target Name="CopyToGame" AfterTargets="Build" Condition="'$(CopyToGame)' == 'true'">
+    <MakeDir Directories="$(MoonSweepersGameRoot)\BepInEx\plugins\WhoLeftTheLightOn" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(MoonSweepersGameRoot)\BepInEx\plugins\WhoLeftTheLightOn" />
+  </Target>
+</Project>

@@ -1,0 +1,97 @@
+name: Build and publish Who Left The Light On
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Release version to build, for example 0.1.0
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-publish:
+    runs-on: [self-hosted, windows, x64, moonsweepers]
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+      MOONSWEEPERS_GAME_ROOT: ${{ vars.MOONSWEEPERS_GAME_ROOT }}
+      DOTNET_PATH: ${{ vars.DOTNET_PATH }}
+
+    steps:
+      - name: Check out the tagged source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine release version
+        id: version
+        shell: pwsh
+        run: |
+          if ('${{ github.event_name }}' -eq 'release') {
+            $version = '${{ github.event.release.tag_name }}'
+          } else {
+            $version = '${{ inputs.version }}'
+          }
+          $version = $version.Trim() -replace '^[vV]', ''
+          if ($version -notmatch '^\d+(\.\d+){1,2}$') { throw "Version '$version' is invalid." }
+          "version=$version" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+
+      - name: Build the release archive
+        shell: pwsh
+        run: |
+          .\tools\Package-WhoLeftTheLightOn.ps1 `
+            -Version '${{ steps.version.outputs.version }}' `
+            -OutputDirectory (Join-Path $env:GITHUB_WORKSPACE 'dist') `
+            -MoonSweepersGameRoot $env:MOONSWEEPERS_GAME_ROOT `
+            -DotnetPath $env:DOTNET_PATH
+
+      - name: Read this release's changelog
+        id: changelog
+        shell: pwsh
+        run: |
+          $version = '${{ steps.version.outputs.version }}'
+          $all = Get-Content -LiteralPath 'CHANGELOG.md' -Raw
+          $pattern = '(?ms)^Version\s+' + [regex]::Escape($version) + '\s*\r?\n(?<body>.*?)(?=^Version\s+\d|\z)'
+          $match = [regex]::Match($all, $pattern)
+          if (-not $match.Success) { throw "No changelog section was found for version $version." }
+          "text<<EOF" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          $match.Groups['body'].Value.Trim() | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          "EOF" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+
+      - name: Attach the archive to the GitHub Release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/WhoLeftTheLightOn-${{ steps.version.outputs.version }}.zip
+          body: ${{ steps.changelog.outputs.text }}
+
+      - name: Check whether Nexus publishing is configured
+        id: nexus
+        shell: pwsh
+        env:
+          NEXUS_API_KEY: ${{ secrets.NEXUSMODS_API_KEY }}
+          NEXUS_FILE_ID: ${{ vars.NEXUSMODS_FILE_ID }}
+          NEXUS_MOD_ID: ${{ vars.NEXUSMODS_MOD_ID }}
+        run: |
+          $ready = -not [string]::IsNullOrWhiteSpace($env:NEXUS_API_KEY) -and
+                   -not [string]::IsNullOrWhiteSpace($env:NEXUS_FILE_ID) -and
+                   -not [string]::IsNullOrWhiteSpace($env:NEXUS_MOD_ID)
+          "ready=$($ready.ToString().ToLowerInvariant())" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          if (-not $ready) { Write-Host 'Nexus upload skipped: API key, file ID, and mod ID are not all configured.' }
+
+      - name: Update the existing Nexus Mods file
+        if: steps.nexus.outputs.ready == 'true' && github.event_name == 'release'
+        uses: Nexus-Mods/upload-action@v1.0.0-beta.11
+        with:
+          api_key: ${{ secrets.NEXUSMODS_API_KEY }}
+          file_id: ${{ vars.NEXUSMODS_FILE_ID }}
+          filename: dist/WhoLeftTheLightOn-${{ steps.version.outputs.version }}.zip
+          version: ${{ steps.version.outputs.version }}
+          display_name: Who Left The Light On? ${{ steps.version.outputs.version }}
+          mod_id: ${{ vars.NEXUSMODS_MOD_ID }}
+          changelog: ${{ steps.changelog.outputs.text }}
+          update_mod_version: true

@@ -1,0 +1,8 @@
+bin/
+obj/
+dist/
+release/
+*.zip
+*.user
+*.suo
+*.log
