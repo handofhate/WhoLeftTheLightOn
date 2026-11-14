@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Who Left The Light On</title>
+<meta name="description" content="Remember the player&#x27;s last flashlight or night-vision mode in Moon Sweepers.">
+<meta property="og:title" content="Who Left The Light On">
+<meta property="og:description" content="Remember the player&#x27;s last flashlight or night-vision mode in Moon Sweepers.">
+<meta property="og:image" content="https://handofhate.github.io/WhoLeftTheLightOn/nexus.jpg">
+<style>
+  :root { --bg: #f6f5f1; --panel: #ffffff; --ink: #1c2230; --dim: #6b6a66; --line: #e2e0da; --accent: #d9601a;
+          --accent-soft: #fbe7da; --code: #f0eee8; --hero1: #1c2230; --hero2: #2b3242; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #15171c; --panel: #1e2128; --ink: #ece9e2; --dim: #9a978f; --line: #2c3039; --accent: #ff8a3d;
+            --accent-soft: #3a2518; --code: #191b21; --hero1: #0f1115; --hero2: #1b1f27; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  a { color: var(--accent); }
+  code { font: 14px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--code); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+  header.hero { background: linear-gradient(160deg, var(--hero1), var(--hero2)); color: #ece9e2; position: relative; overflow: hidden; }
+  .hero .wrap { padding-top: 56px; padding-bottom: 64px; position: relative; z-index: 1; }
+  .hero svg.badge { position: absolute; right: -40px; top: -20px; width: 340px; height: 340px; z-index: 0; }
+  .hero h1 { font-size: clamp(34px, 7vw, 54px); margin: 0 0 8px; letter-spacing: -0.02em; }
+  .hero p.lead { font-size: clamp(17px, 2.4vw, 21px); max-width: 620px; margin: 0 0 28px; color: #c9c5bc; }
+  .btns { display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn { display: inline-block; padding: 10px 18px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 15px; border: 1px solid #ffffff33; color: #ece9e2; }
+  .btn.main { background: #ff8a3d; border-color: #ff8a3d; color: #1c2230; }
+  .btn:hover { filter: brightness(1.1); }
+  section { padding: 48px 0 8px; }
+  section.keys { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; padding-top: 28px; }
+  .key { border-left: 3px solid var(--accent); background: var(--panel); border-radius: 0 10px 10px 0; padding: 12px 14px; color: var(--dim); font-size: 15px; min-width: 0; }
+  .key b { display: block; color: var(--ink); font-size: 16px; margin-bottom: 4px; }
+  h2 { font-size: 26px; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .sub { color: var(--dim); margin: 0 0 22px; max-width: 720px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+  .cards > * { min-width: 0; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px 18px 16px; }
+  .card h3 { margin: 0 0 6px; font-size: 17px; }
+  .card p { margin: 0; color: var(--dim); font-size: 15px; }
+  .card .tag { display: inline-block; font: 600 11px ui-monospace, monospace; letter-spacing: .04em; text-transform: uppercase; color: var(--accent); background: var(--accent-soft); border-radius: 4px; padding: 2px 6px; margin-bottom: 10px; }
+  a.card { text-decoration: none; color: inherit; transition: border-color .15s; }
+  a.card:hover { border-color: var(--accent); }
+  .diagram { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px; overflow-x: auto; }
+  .diagram pre.mermaid { margin: 0; background: none; text-align: center; }
+  ol.steps { list-style: none; counter-reset: s; padding: 0; margin: 0; display: grid; gap: 12px; }
+  ol.steps li { min-width: 0; counter-increment: s; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px 14px 58px; position: relative; }
+  ol.steps li::before { content: counter(s); position: absolute; left: 16px; top: 13px; width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 700; display: grid; place-items: center; font-size: 14px; }
+  ol.steps b { display: block; margin-bottom: 2px; }
+  table { border-collapse: collapse; width: 100%; font-size: 15px; }
+  td, th { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--dim); font-weight: 600; font-size: 13px; }
+  .tablebox { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; overflow-x: auto; }
+  figure.shot { margin: 28px 0 0; }
+  figure.shot img { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--line); }
+  footer { margin-top: 56px; border-top: 1px solid var(--line); padding: 22px 0 40px; color: var(--dim); font-size: 14px; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 22px; }
+  @media (max-width: 760px) { .hero svg.badge { width: 200px; height: 200px; right: -60px; top: -30px; opacity: .5; } }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <svg class="badge" viewBox="0 0 200 200" aria-hidden="true">
+    <path d="M70 80 L190 30 L190 170 L70 120 Z" fill="#ff8a3d" opacity=".16"/>
+    <rect x="22" y="78" width="54" height="44" rx="10" fill="#ff8a3d" opacity=".9"/>
+    <rect x="10" y="88" width="16" height="24" rx="5" fill="#ff8a3d" opacity=".6"/>
+    <circle cx="150" cy="100" r="9" fill="#ece9e2" opacity=".5"/></svg>
+  <div class="wrap">
+    <h1>Who Left The Light On?</h1>
+    <p class="lead">Remembers your last flashlight or night-vision mode between game launches, and turns it back on when you&#x27;re ready.</p>
+    <div class="btns">
+      <a class="btn main" href="https://github.com/handofhate/WhoLeftTheLightOn/releases/latest">Download</a>
+      <a class="btn" href="https://www.nexusmods.com/moonsweepers/mods/157">Nexus Mods</a>
+      <a class="btn" href="https://github.com/handofhate/WhoLeftTheLightOn/wiki">Wiki</a>
+      <a class="btn" href="https://github.com/handofhate/WhoLeftTheLightOn">GitHub</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<figure class="shot"><img src="nexus.jpg" alt="Who Left The Light On, from its Nexus Mods page" loading="eager"></figure>
+
+<section class="keys">
+  <div class="key"><b>Three modes</b>Off, flashlight or night vision: whichever you last settled on comes back next time.</div>
+  <div class="key"><b>Only settled choices</b>A mode counts once it has held for a moment, so flicking through the modes doesn&#x27;t save the wrong one.</div>
+  <div class="key"><b>Nothing to set up</b>No settings. Your choice is kept in one small file in BepInEx/config/.</div>
+  <div class="key"><b>Hot with LunarLink</b>Optional: with LunarLink it reloads and updates in place, no restart.</div>
+</section>
+
+<section>
+  <h2>What it does</h2>
+  <div class="cards">
+    <div class="card"><span class="tag">Remembers</span><h3>Your last light</h3><p>When you turn the lamp or night vision on or off, the mod notes the mode once it&#x27;s stable.</p></div>
+    <div class="card"><span class="tag">Restores</span><h3>When you&#x27;re ready</h3><p>Next launch, once your character is in the world, the same mode is switched back on through the game&#x27;s own controls.</p></div>
+    <div class="card"><span class="tag">Stays out of the way</span><h3>Vanilla controls</h3><p>It only watches the game&#x27;s own lamp and night-vision toggles; nothing new to learn.</p></div>
+    <div class="card"><span class="tag">Updates</span><h3>In-game, with LunarLink</h3><p>It names its GitHub releases, so LunarLink&#x27;s F9 UPDATES tab can install new versions.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>How it remembers</h2>
+  <div class="diagram"><pre class="mermaid">
+flowchart LR
+  t["You toggle the lamp<br/>or night vision"] --> w{"Same mode for<br/>a moment?"}
+  w -- "no (still switching)" --> t
+  w -- "yes" --> s["Saved to<br/>BepInEx/config/<br/>WhoLeftTheLightOn.preferences"]
+  s -. "next launch" .-> r["Your character is in the world"]
+  r --> a["The saved mode is<br/>switched back on"]
+</pre></div>
+</section>
+
+<section>
+  <h2>Install</h2>
+  <p class="sub">Only you install it: it runs on your own game.</p>
+  <ol class="steps">
+    <li><b>Install BepInEx 6 and the Moon Sweepers patcher</b><a href="https://builds.bepinex.dev/projects/bepinex_be">BepInEx 6.0.0-be.791</a> (Unity.IL2CPP, win-x64) and the <a href="https://www.nexusmods.com/moonsweepers/mods/9">MoonSweepers BepInEx Patcher</a>; run the game once.</li>
+    
+    <li><b>Download it</b>From <a href="https://www.nexusmods.com/moonsweepers/mods/157">Nexus Mods</a> or the <a href="https://github.com/handofhate/WhoLeftTheLightOn/releases/latest">latest GitHub release</a>.</li>
+    <li><b>Unzip it into the game folder, with the game closed</b>You get <code>BepInEx/plugins/WhoLeftTheLightOn/WhoLeftTheLightOn.dll</code>. A mod manager such as Vortex does this for you.</li>
+    <li><b>Start the game</b>The BepInEx log says "Who Left The Light On? x.y.z loaded".</li>
+  </ol>
+</section>
+
+<section>
+  <h2>On its own, or hot with LunarLink</h2>
+  <p class="sub"><b>Who Left The Light On runs on its own</b>: a normal BepInEx plugin. <b>With <a href="https://swheettaos.github.io/lunarlink/">LunarLink</a></b>, a free plugin that loads plugins from <code>BepInEx/hot/</code>, it reloads and updates while the game runs.</p>
+  <div class="tablebox"><table>
+    <tr><th></th><th>On its own</th><th>With LunarLink</th></tr>
+    <tr><td><b>Install it in</b></td><td><code>BepInEx/plugins/WhoLeftTheLightOn/</code></td><td><code>BepInEx/hot/WhoLeftTheLightOn.dll</code> (the DLL straight in, not in a subfolder)</td></tr>
+    <tr><td><b>Updating</b></td><td>Download, close the game, unzip, start again</td><td>F9 → UPDATES → <b>Update</b>: installed in place, <b>no restart</b></td></tr>
+    <tr><td><b>Turning it off</b></td><td>Remove the DLL, restart</td><td>F9 → HOT PLUGINS → <b>Disable</b>: unloaded from memory at once</td></tr>
+  </table></div>
+  <p style="margin-top:14px">Not in both folders: a plugin in both would load twice, so LunarLink refuses the hot copy. A new hot plugin starts off: turn it on in F9 → HOT PLUGINS → <b>Enable</b>.</p>
+</section>
+
+<section>
+  <h2>Read more</h2>
+  <div class="cards">
+    <a class="card" href="https://github.com/handofhate/WhoLeftTheLightOn/wiki"><h3>The wiki</h3><p>Installing, using it, troubleshooting.</p></a>
+    <a class="card" href="https://github.com/handofhate/WhoLeftTheLightOn/blob/main/CHANGELOG.md"><h3>Changelog</h3><p>What changed in each version.</p></a>
+    <a class="card" href="https://www.nexusmods.com/moonsweepers/mods/157"><h3>Nexus Mods</h3><p>Downloads, posts and endorsements.</p></a>
+    <a class="card" href="https://swheettaos.github.io/lunarlink/"><h3>LunarLink</h3><p>Run it hot: reload and update in place, no restart.</p></a>
+    <a class="card" href="https://github.com/handofhate/WhoLeftTheLightOn/issues/new/choose"><h3>Report a problem</h3><p>Bug reports, feature requests and questions.</p></a>
+  </div>
+</section>
+
+</main>
+
+<footer><div class="wrap">
+  <span>Who Left The Light On? by Ty (hand-of-hate)</span>
+  <a href="https://github.com/handofhate/WhoLeftTheLightOn">Source</a>
+  <a href="https://www.nexusmods.com/moonsweepers/mods/157">Nexus Mods</a>
+</div></footer>
+
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.esm.min.mjs";
+  const dark = matchMedia("(prefers-color-scheme: dark)").matches;
+  mermaid.initialize({ startOnLoad: true, theme: dark ? "dark" : "neutral", fontFamily: "system-ui, sans-serif" });
+</script>
+</body>
+</html>

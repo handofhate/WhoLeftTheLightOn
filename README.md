@@ -1,5 +1,7 @@
 # Who Left The Light On?
 
+[Website](https://handofhate.github.io/WhoLeftTheLightOn/) · [Wiki](https://github.com/handofhate/WhoLeftTheLightOn/wiki) · [Nexus Mods](https://www.nexusmods.com/moonsweepers/mods/157) · [Report a problem](https://github.com/handofhate/WhoLeftTheLightOn/issues/new/choose)
+
 Remembers the player's last flashlight mode between game launches.
 
 The game has three modes: off, flashlight, and night vision. The mod watches the vanilla light controls and restores the last stable mode when the player is ready.
