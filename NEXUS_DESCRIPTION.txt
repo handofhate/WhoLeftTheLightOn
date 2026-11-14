@@ -1,0 +1,105 @@
+[center][b][size=6]Who Left The Light On?[/size][/b][/center]
+[center][/center]
+[center][/center]
+[center][b][size=5]Tired of cycling through the light modes every time you launch Moon Sweepers?[/size][/b][/center]
+[center][/center]
+[center][/center]
+[center][b][size=5]Who Left The Light On? remembers your last vanilla light mode and restores it for you when you return to the game.[/size][/b][/center]
+
+
+
+[b][size=4]CURRENT RELEASE[/size][/b]
+
+Mod: Who Left The Light On? 0.1.1
+Target game build: Moon Sweepers 1.0.5
+Status: Stable 0.1.1 release
+
+[b]Please back up your save before using any mods.[/b]
+
+
+
+[b][size=4]FEATURES[/size][/b]
+
+[list]
+[*]Remembers the last vanilla light mode used before closing the game.[/*]
+[*]Restores Off, Flashlight, or Night vision when you return to the game.[/*]
+[*]Does not add new light modes or change the game's existing light behavior.[/*]
+[*]Supports normal BepInEx loading.[/*]
+[*]Supports optional Lunar Link hot swapping and in-game updating.[/*]
+[/list]
+
+
+
+[b][size=4]REQUIREMENTS[/size][/b]
+
+Install these prerequisites before installing Who Left The Light On?:
+
+[list]
+[*]BepInEx 6 IL2CPP for Moon Sweepers[/*]
+[*]The Moon Sweepers BepInEx compatibility patcher required by the game[/*]
+[*]MoonFramework[/*]
+[*]Moon Sweepers 1.0.5[/*]
+[/list]
+
+
+
+[b][size=4]INSTALLATION[/size][/b]
+
+[list=1]
+[*]Close Moon Sweepers completely.[/*]
+[*]Install and verify BepInEx and its Moon Sweepers compatibility patcher.[/*]
+[*]Install MoonFramework.[/*]
+[*]Extract the Who Left The Light On? archive into the Moon Sweepers installation directory.[/*]
+[/list]
+
+Confirm that the plugin is located like this:
+
+Moon Sweepers/
+  BepInEx/
+    plugins/
+      WhoLeftTheLightOn/
+        WhoLeftTheLightOn.dll
+
+
+
+[b][size=4]OPTIONAL LUNAR LINK INSTALLATION[/size][/b]
+
+With Lunar Link installed, the mod can be loaded, reloaded, and updated without restarting the game. Put the DLL at:
+
+Moon Sweepers/
+  BepInEx/
+    hot/
+      WhoLeftTheLightOn.dll
+
+Do not leave another active copy in [font=Courier New]BepInEx/plugins[/font]. Use Lunar Link's F9 window to enable or reload the hot copy.
+
+Lunar Link can also check for published GitHub releases and let you update the mod from its Updates window.
+
+
+
+[b][size=4]NOTES[/size][/b]
+
+The game has three vanilla light modes: Off, Flashlight, and Night vision. This mod watches the vanilla light controls and restores the last stable mode when the player is ready.
+
+The mod was tested on Moon Sweepers 1.0.5 with the current BepInEx and MoonFramework setup. Game updates may require compatibility testing.
+
+
+
+[b][size=4]KNOWN LIMITATIONS[/size][/b]
+
+[list]
+[*]The mod remembers the last stable vanilla mode; it does not create a custom light mode.[/*]
+[*]The mod depends on the game's existing flashlight and night-vision systems.[/*]
+[*]Game updates may require compatibility testing.[/*]
+[/list]
+
+
+
+[b][size=4]UNINSTALLATION[/size][/b]
+
+[list]
+[*]Close Moon Sweepers.[/*]
+[*]Remove the [font=Courier New]BepInEx/plugins/WhoLeftTheLightOn/[/font] folder.[/*]
+[*]If using Lunar Link, remove the hot copy from [font=Courier New]BepInEx/hot/[/font] as well.[/*]
+[*]Leave BepInEx and MoonFramework installed if other mods use them.[/*]
+[/list]

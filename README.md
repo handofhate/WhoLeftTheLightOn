@@ -16,4 +16,4 @@ With Lunar Link installed, the mod can be hot-swapped without restarting the gam
 
 Do not leave another active copy in `BepInEx/plugins`. Use Lunar Link's F9 window to enable or reload the hot copy.
 
-Lunar Link can also report published GitHub releases in its Updates window.
+Lunar Link can also check for published GitHub releases and let you update the mod from its Updates window.
