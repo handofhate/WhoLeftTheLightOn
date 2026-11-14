@@ -1,5 +1,7 @@
 # Who Left The Light On?
 
+> **LunarLink compatible.** Who Left The Light On? runs on its own, and with [LunarLink](https://swheettaos.github.io/lunarlink/) it runs hot: reload it, turn it off (unloaded from memory) and update it from the game's F9 window, with no restart. See [[With LunarLink]].
+
 **Remembers your last flashlight or night-vision mode between game launches**, and switches it back on once your
 character is in the world.
 
