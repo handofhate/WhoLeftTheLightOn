@@ -1,3 +1,7 @@
+Version 0.1.1
+
+- Added Lunar Link's GitHub release update feed.
+
 Version 0.1.0
 
 - Initial release.

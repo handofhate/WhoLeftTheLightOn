@@ -15,7 +15,7 @@ public sealed class Plugin : BasePlugin
 {
     public const string PluginGuid = "tylerun.moonsweepers.wholeftthelighton";
     public const string PluginName = "Who Left The Light On?";
-    public const string PluginVersion = "0.1.0";
+    public const string PluginVersion = "0.1.1";
 
     internal static ManualLogSource Logger;
     internal static Harmony Harmony;
@@ -58,6 +58,8 @@ public sealed class Plugin : BasePlugin
         if (oldLogger != null) BepInEx.Logging.Logger.Sources.Remove(oldLogger);
         return "light preference stopped";
     }
+
+    internal static string UpdateFeed() => "github:handofhate/WhoLeftTheLightOn";
 }
 
 // Lunar Link discovers this public lifecycle class by method name. Plugin remains a normal BepInEx plugin fallback.
@@ -66,6 +68,7 @@ public sealed class WhoLeftTheLightOnHot
     public void Start(string state) => Plugin.StartHot();
     public string Stop() => Plugin.StopHot();
     public void Update() => Preferences.Update();
+    public string UpdateFeed() => Plugin.UpdateFeed();
 }
 
 [HarmonyPatch(typeof(MoonWalker), nameof(MoonWalker.ToggleLamp))]
