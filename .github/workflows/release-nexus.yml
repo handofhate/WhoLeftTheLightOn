@@ -9,6 +9,11 @@ on:
         description: Release version to build, for example 0.1.0
         required: true
         type: string
+      changelog_only:
+        description: Add the matching changelog to Nexus without uploading another file
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: write
@@ -41,6 +46,7 @@ jobs:
           "version=$version" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
 
       - name: Build the release archive
+        if: inputs.changelog_only != true
         shell: pwsh
         run: |
           .\tools\Package-WhoLeftTheLightOn.ps1 `
@@ -83,8 +89,26 @@ jobs:
           "ready=$($ready.ToString().ToLowerInvariant())" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
           if (-not $ready) { Write-Host 'Nexus upload skipped: API key, file ID, and mod ID are not all configured.' }
 
-      - name: Update the existing Nexus Mods file
+      - name: Resolve the Nexus Mods API mod ID
+        id: nexus-mod
         if: steps.nexus.outputs.ready == 'true'
+        shell: pwsh
+        env:
+          NEXUS_API_KEY: ${{ secrets.NEXUSMODS_API_KEY }}
+          NEXUS_PAGE_MOD_ID: ${{ vars.NEXUSMODS_MOD_ID }}
+        run: |
+          $headers = @{
+            apikey = $env:NEXUS_API_KEY
+            'User-Agent' = 'WhoLeftTheLightOn-release'
+          }
+          $uri = "https://api.nexusmods.com/v3/games/moonsweepers/mods/$($env:NEXUS_PAGE_MOD_ID)"
+          $mod = Invoke-RestMethod -Method Get -Uri $uri -Headers $headers
+          $id = [string]$mod.data.id
+          if ([string]::IsNullOrWhiteSpace($id)) { throw 'Nexus API did not return the internal mod ID.' }
+          "id=$id" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+
+      - name: Update the existing Nexus Mods file
+        if: steps.nexus.outputs.ready == 'true' && inputs.changelog_only != true
         uses: Nexus-Mods/upload-action@v1.0.0-beta.11
         with:
           api_key: ${{ secrets.NEXUSMODS_API_KEY }}
@@ -92,6 +116,28 @@ jobs:
           filename: dist/WhoLeftTheLightOn-${{ steps.version.outputs.version }}.zip
           version: ${{ steps.version.outputs.version }}
           display_name: Who Left The Light On ${{ steps.version.outputs.version }}
-          mod_id: ${{ vars.NEXUSMODS_MOD_ID }}
+          mod_id: ${{ steps.nexus-mod.outputs.id }}
           changelog: ${{ steps.changelog.outputs.text }}
           update_mod_version: true
+
+      - name: Add Nexus changelog without uploading a file
+        if: steps.nexus.outputs.ready == 'true' && inputs.changelog_only == true
+        shell: pwsh
+        env:
+          NEXUS_API_KEY: ${{ secrets.NEXUSMODS_API_KEY }}
+          NEXUS_MOD_ID: ${{ steps.nexus-mod.outputs.id }}
+          NEXUS_VERSION: ${{ steps.version.outputs.version }}
+          NEXUS_CHANGELOG: ${{ steps.changelog.outputs.text }}
+        run: |
+          $headers = @{
+            apikey = $env:NEXUS_API_KEY
+            'User-Agent' = 'WhoLeftTheLightOn-release'
+            'Content-Type' = 'application/json'
+          }
+          $body = @{
+            version = $env:NEXUS_VERSION
+            changelog = $env:NEXUS_CHANGELOG
+          } | ConvertTo-Json -Compress
+          $uri = "https://api.nexusmods.com/v3/mods/$($env:NEXUS_MOD_ID)/changelogs"
+          Invoke-RestMethod -Method Post -Uri $uri -Headers $headers -Body $body | Out-Null
+          Write-Host "Nexus changelog added for version $($env:NEXUS_VERSION)."

@@ -19,12 +19,13 @@ Set the repository variable `MOONSWEEPERS_GAME_ROOT` to the game's install direc
 The first Nexus upload must be done manually because the Nexus action updates an existing file; it does not create a new Nexus mod page or first file. After the first file is published, add:
 
 - Repository secret `NEXUSMODS_API_KEY`
-- Repository variables `NEXUSMODS_FILE_ID` and `NEXUSMODS_MOD_ID`
+- Repository variables `NEXUSMODS_FILE_ID` and `NEXUSMODS_MOD_ID` (`NEXUSMODS_MOD_ID` is the numeric ID from the public Nexus page URL; the workflow resolves it to the v3 API ID automatically)
 
 Later **published** GitHub Releases will then update that Nexus file automatically. A manual workflow dispatch also
 performs the Nexus upload, providing a safe retry path if a release build succeeds but the Nexus update needs to be
-retried. A normal push to GitHub does not publish to Nexus. If any of those values are missing, the workflow still builds
-and attaches the GitHub archive but skips Nexus safely.
+retried. The workflow also has a changelog-only repair option, which adds the release notes to Nexus without uploading
+the archive again. A normal push to GitHub does not publish to Nexus. If any of those values are missing, the workflow
+still builds and attaches the GitHub archive but skips Nexus safely.
 
 ## Publishing a release
 
