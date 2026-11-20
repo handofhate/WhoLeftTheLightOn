@@ -84,14 +84,14 @@ jobs:
           if (-not $ready) { Write-Host 'Nexus upload skipped: API key, file ID, and mod ID are not all configured.' }
 
       - name: Update the existing Nexus Mods file
-        if: steps.nexus.outputs.ready == 'true' && github.event_name == 'release'
+        if: steps.nexus.outputs.ready == 'true'
         uses: Nexus-Mods/upload-action@v1.0.0-beta.11
         with:
           api_key: ${{ secrets.NEXUSMODS_API_KEY }}
           file_id: ${{ vars.NEXUSMODS_FILE_ID }}
           filename: dist/WhoLeftTheLightOn-${{ steps.version.outputs.version }}.zip
           version: ${{ steps.version.outputs.version }}
-          display_name: Who Left The Light On? ${{ steps.version.outputs.version }}
+          display_name: Who Left The Light On ${{ steps.version.outputs.version }}
           mod_id: ${{ vars.NEXUSMODS_MOD_ID }}
           changelog: ${{ steps.changelog.outputs.text }}
           update_mod_version: true
