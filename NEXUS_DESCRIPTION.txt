@@ -1,105 +1,79 @@
 [center][b][size=6]Who Left The Light On?[/size][/b][/center]
-[center][/center]
-[center][/center]
-[center][b][size=5]Tired of cycling through the light modes every time you launch Moon Sweepers?[/size][/b][/center]
-[center][/center]
-[center][/center]
-[center][b][size=5]Who Left The Light On? remembers your last vanilla light mode and restores it for you when you return to the game.[/size][/b][/center]
+[center][size=4]Persistent lighting and vehicle preferences for Moon Sweepers[/size][/center]
 
+[center][b][size=5]Version 1.0.0[/size][/b][/center]
+[center]Target game build: Moon Sweepers 1.0.6 preview[/center]
 
+[b][size=4]WHAT IT DOES[/size][/b]
 
-[b][size=4]CURRENT RELEASE[/size][/b]
-
-Mod: Who Left The Light On? 0.1.1
-Target game build: Moon Sweepers 1.0.5
-Status: Stable 0.1.1 release
-
-[b]Please back up your save before using any mods.[/b]
-
-
+Who Left The Light On? remembers the settings you actually use and restores them when you need them again. It works with the game's existing systems and does not add custom light modes or modify save-game data.
 
 [b][size=4]FEATURES[/size][/b]
 
 [list]
-[*]Remembers the last vanilla light mode used before closing the game.[/*]
-[*]Restores Off, Flashlight, or Night vision when you return to the game.[/*]
-[*]Does not add new light modes or change the game's existing light behavior.[/*]
-[*]Supports normal BepInEx loading.[/*]
-[*]Supports optional Lunar Link hot swapping and in-game updating.[/*]
+[*]Remembers the player's last helmet lighting mode: Off, Flashlight, or Night Vision.[/*]
+[*]Remembers vehicle lights separately for each vehicle.[/*]
+[*]Restores saved vehicle lights when vehicles spawn, before you mount them.[/*]
+[*]Remembers adjustable suction power separately for each vehicle.[/*]
+[*]Provides per-vehicle Vehicle Boost Lock. Left Shift toggles persistent boost mode while driving; braking, stopping, and exiting do not clear it.[/*]
+[*]Stores preferences locally in BepInEx/config/.[/*]
+[*]Supports normal BepInEx loading and optional Lunar Link hot swapping and in-game updates.[/*]
 [/list]
 
+[b][size=4]SETTINGS[/size][/b]
 
+The settings are available in Lunar Link's F9 window under the expanded Who Left The Light On? row, and in compatible mod-manager settings screens. The four functional settings default to On.
+
+[list]
+[*][b]Remember Helmet Lighting[/b] restores Off, Flashlight, or Night Vision.[/*]
+[*][b]Remember Vehicle Lights[/b] remembers each vehicle's light state independently.[/*]
+[*][b]Remember Vehicle Suction[/b] remembers each vehicle's adjustable suction setting independently.[/*]
+[*][b]Vehicle Boost Lock[/b] makes Left Shift toggle persistent boost mode for the current vehicle.[/*]
+[*][b]Clear Remembered Vehicle Settings[/b] is a one-shot reset. Set it to On and apply once; it clears stored vehicle lights, suction, and boost preferences, then returns to Off.[/*]
+[/list]
+
+The settings file is [font=Courier New]BepInEx/config/tylerun.moonsweepers.wholeftthelighton.cfg[/font]. The remembered runtime state is [font=Courier New]BepInEx/config/WhoLeftTheLightOn.preferences[/font].
 
 [b][size=4]REQUIREMENTS[/size][/b]
 
-Install these prerequisites before installing Who Left The Light On?:
-
 [list]
-[*]BepInEx 6 IL2CPP for Moon Sweepers[/*]
-[*]The Moon Sweepers BepInEx compatibility patcher required by the game[/*]
-[*]MoonFramework[/*]
-[*]Moon Sweepers 1.0.5[/*]
+[*]Moon Sweepers.[/*]
+[*]BepInEx 6 IL2CPP for Moon Sweepers.[/*]
+[*]The Moon Sweepers BepInEx compatibility patcher.[/*]
+[*]MoonFramework, as required by the current Moon Sweepers mod setup.[/*]
+[*]Lunar Link is optional, but required for hot loading and in-game updates.[/*]
 [/list]
 
-
-
-[b][size=4]INSTALLATION[/size][/b]
+[b][size=4]NORMAL INSTALLATION[/size][/b]
 
 [list=1]
 [*]Close Moon Sweepers completely.[/*]
-[*]Install and verify BepInEx and its Moon Sweepers compatibility patcher.[/*]
-[*]Install MoonFramework.[/*]
-[*]Extract the Who Left The Light On? archive into the Moon Sweepers installation directory.[/*]
+[*]Install and verify BepInEx and the Moon Sweepers compatibility patcher.[/*]
+[*]Extract the archive into the Moon Sweepers installation directory.[/*]
 [/list]
 
-Confirm that the plugin is located like this:
+The normal plugin path is:
 
-Moon Sweepers/
-  BepInEx/
-    plugins/
-      WhoLeftTheLightOn/
-        WhoLeftTheLightOn.dll
+[font=Courier New]Moon Sweepers/BepInEx/plugins/WhoLeftTheLightOn/WhoLeftTheLightOn.dll[/font]
 
+[b][size=4]LUNAR LINK INSTALLATION[/size][/b]
 
+With Lunar Link installed, place the DLL directly at:
 
-[b][size=4]OPTIONAL LUNAR LINK INSTALLATION[/size][/b]
+[font=Courier New]Moon Sweepers/BepInEx/hot/WhoLeftTheLightOn.dll[/font]
 
-With Lunar Link installed, the mod can be loaded, reloaded, and updated without restarting the game. Put the DLL at:
+Do not leave another active copy in [font=Courier New]BepInEx/plugins[/font]. A normal copy and a hot copy can load twice. Use Lunar Link's F9 window to enable, reload, disable, or update the hot module.
 
-Moon Sweepers/
-  BepInEx/
-    hot/
-      WhoLeftTheLightOn.dll
-
-Do not leave another active copy in [font=Courier New]BepInEx/plugins[/font]. Use Lunar Link's F9 window to enable or reload the hot copy.
-
-Lunar Link can also check for published GitHub releases and let you update the mod from its Updates window.
-
-
-
-[b][size=4]NOTES[/size][/b]
-
-The game has three vanilla light modes: Off, Flashlight, and Night vision. This mod watches the vanilla light controls and restores the last stable mode when the player is ready.
-
-The mod was tested on Moon Sweepers 1.0.5 with the current BepInEx and MoonFramework setup. Game updates may require compatibility testing.
-
-
-
-[b][size=4]KNOWN LIMITATIONS[/size][/b]
-
-[list]
-[*]The mod remembers the last stable vanilla mode; it does not create a custom light mode.[/*]
-[*]The mod depends on the game's existing flashlight and night-vision systems.[/*]
-[*]Game updates may require compatibility testing.[/*]
-[/list]
-
-
+Lunar Link can check the published GitHub releases and update the hot module in place without a game restart.
 
 [b][size=4]UNINSTALLATION[/size][/b]
 
 [list]
 [*]Close Moon Sweepers.[/*]
-[*]Remove the [font=Courier New]BepInEx/plugins/WhoLeftTheLightOn/[/font] folder.[/*]
-[*]If using Lunar Link, remove the hot copy from [font=Courier New]BepInEx/hot/[/font] as well.[/*]
-[*]Leave BepInEx and MoonFramework installed if other mods use them.[/*]
+[*]Remove the installed DLL from [font=Courier New]BepInEx/plugins/WhoLeftTheLightOn/[/font] or [font=Courier New]BepInEx/hot/[/font].[/*]
+[*]Optionally remove [font=Courier New]BepInEx/config/WhoLeftTheLightOn.preferences[/font] and [font=Courier New]BepInEx/config/tylerun.moonsweepers.wholeftthelighton.cfg[/font] to remove stored preferences.[/*]
 [/list]
+
+[b][size=4]COMPATIBILITY NOTE[/size][/b]
+
+The 1.0.0 release was built and checked against the Moon Sweepers 1.0.6 preview environment. Game updates can change internal vehicle or lighting behavior and may require a compatibility update.

@@ -1,6 +1,7 @@
 # Release automation
 
-This repository builds the release archive on the Moon Sweepers Windows runner and attaches it to a published GitHub Release.
+This repository builds the release archive on the Moon Sweepers Windows runner, attaches it to a published GitHub Release,
+and updates the existing Nexus Mods file.
 
 ## Repository setup
 
@@ -20,13 +21,17 @@ The first Nexus upload must be done manually because the Nexus action updates an
 - Repository secret `NEXUSMODS_API_KEY`
 - Repository variables `NEXUSMODS_FILE_ID` and `NEXUSMODS_MOD_ID`
 
-Later published GitHub Releases will then update that Nexus file automatically. If any of those values are missing, the workflow still builds and attaches the GitHub archive but skips Nexus safely.
+Later **published** GitHub Releases will then update that Nexus file automatically. A normal push to GitHub and a manual
+workflow dispatch do not publish to Nexus. If any of those values are missing, the workflow still builds and attaches the
+GitHub archive but skips Nexus safely.
 
 ## Publishing a release
 
 1. Update `PluginVersion` in `Plugin.cs`.
 2. Add a matching `Version x.y.z` section to `CHANGELOG.md`.
-3. Commit and push the changes.
-4. Create and publish a GitHub Release with a matching tag such as `v0.1.0`.
+3. Update the README, Nexus description, and relevant wiki/website documentation.
+4. Build and test the release locally.
+5. Commit and push the changes.
+6. Create and **publish** a GitHub Release with a matching tag such as `v1.0.0`.
 
 The release workflow builds `WhoLeftTheLightOn-x.y.z.zip`, attaches it to GitHub, and uploads to Nexus only when Nexus is configured.

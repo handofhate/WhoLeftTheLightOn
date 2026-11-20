@@ -15,8 +15,9 @@ with BepInEx installed and run once, and the .NET SDK.
 ## Releases
 
 See [RELEASE_AUTOMATION.md](https://github.com/handofhate/WhoLeftTheLightOn/blob/main/RELEASE_AUTOMATION.md): bump `PluginVersion` in `Plugin.cs`, add a matching
-`Version x.y.z` section to `CHANGELOG.md`, push, and publish a GitHub release with the tag `vx.y.z`. The release
-workflow builds the zip, attaches it, and updates Nexus when that's set up.
+`Version x.y.z` section to `CHANGELOG.md`, commit and push the source, then create and publish a GitHub Release with the
+tag `vx.y.z`. A push alone does not publish to Nexus. The published-release workflow builds the zip, attaches it, and
+updates the existing Nexus file when the repository's Nexus secret and variables are configured.
 
 ## Docs
 

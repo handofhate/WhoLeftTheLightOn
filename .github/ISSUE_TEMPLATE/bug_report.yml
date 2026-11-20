@@ -20,10 +20,11 @@ body:
     attributes:
       label: Which part
       options:
-        - The light mode isn't restored
-        - The wrong mode comes back
-        - Night vision
-        - Flashlight
+        - Helmet lighting isn't restored
+        - Vehicle lights aren't restored
+        - Vehicle suction isn't restored
+        - Vehicle Boost Lock
+        - The wrong preference comes back
         - Hot loading with LunarLink
         - The game crashed or froze
         - Something else
@@ -43,7 +44,7 @@ body:
     id: logs
     attributes:
       label: Logs
-      description: "The lines from `BepInEx/LogOutput.log` that mention Who Left The Light On (it logs the last light mode when it loads), and the contents of `BepInEx/config/WhoLeftTheLightOn.preferences`."
+      description: "The lines from `BepInEx/LogOutput.log` that mention Who Left The Light On, plus the contents of `BepInEx/config/WhoLeftTheLightOn.preferences` and `BepInEx/config/tylerun.moonsweepers.wholeftthelighton.cfg`."
       render: text
   - type: input
     id: versions

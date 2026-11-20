@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Who Left The Light On</title>
-<meta name="description" content="Remember the player&#x27;s last flashlight or night-vision mode in Moon Sweepers.">
+<meta name="description" content="Remember helmet lighting, vehicle lights, suction settings, and boost lock preferences in Moon Sweepers.">
 <meta property="og:title" content="Who Left The Light On">
-<meta property="og:description" content="Remember the player&#x27;s last flashlight or night-vision mode in Moon Sweepers.">
+<meta property="og:description" content="Remember helmet lighting, vehicle lights, suction settings, and boost lock preferences in Moon Sweepers.">
 <meta property="og:image" content="https://handofhate.github.io/WhoLeftTheLightOn/nexus.jpg">
 <style>
   :root { --bg: #f6f5f1; --panel: #ffffff; --ink: #1c2230; --dim: #6b6a66; --line: #e2e0da; --accent: #d9601a;
@@ -75,7 +75,7 @@
   <div class="wrap">
     <a class="ll" href="https://swheettaos.github.io/lunarlink/" title="Reload, turn off and update it in-game with LunarLink, no restart"><i></i>LunarLink compatible: hot reload and in-game updates</a>
     <h1>Who Left The Light On?</h1>
-    <p class="lead">Remembers your last flashlight or night-vision mode between game launches, and turns it back on when you&#x27;re ready.</p>
+    <p class="lead">Remembers your helmet lighting and per-vehicle preferences, then restores them when you need them.</p>
     <div class="btns">
       <a class="btn main" href="https://github.com/handofhate/WhoLeftTheLightOn/releases/latest">Download</a>
       <a class="btn" href="https://www.nexusmods.com/moonsweepers/mods/157">Nexus Mods</a>
@@ -90,19 +90,19 @@
 <figure class="shot"><img src="nexus.jpg" alt="Who Left The Light On, from its Nexus Mods page" loading="eager"></figure>
 
 <section class="keys">
-  <div class="key"><b>Three modes</b>Off, flashlight or night vision: whichever you last settled on comes back next time.</div>
-  <div class="key"><b>Only settled choices</b>A mode counts once it has held for a moment, so flicking through the modes doesn&#x27;t save the wrong one.</div>
-  <div class="key"><b>Nothing to set up</b>No settings. Your choice is kept in one small file in BepInEx/config/.</div>
-  <div class="key"><b>Hot with LunarLink</b>Optional: with LunarLink it reloads and updates in place, no restart.</div>
+  <div class="key"><b>Helmet lighting</b>Remembers Off, Flashlight, or Night Vision.</div>
+  <div class="key"><b>Per-vehicle memory</b>Lights and adjustable suction are remembered independently for each vehicle.</div>
+  <div class="key"><b>Boost lock</b>Left Shift toggles persistent boost mode for the current vehicle.</div>
+  <div class="key"><b>Hot with LunarLink</b>Optional: reload and update it in place, without a restart.</div>
 </section>
 
 <section>
   <h2>What it does</h2>
   <div class="cards">
-    <div class="card"><span class="tag">Remembers</span><h3>Your last light</h3><p>When you turn the lamp or night vision on or off, the mod notes the mode once it&#x27;s stable.</p></div>
-    <div class="card"><span class="tag">Restores</span><h3>When you&#x27;re ready</h3><p>Next launch, once your character is in the world, the same mode is switched back on through the game&#x27;s own controls.</p></div>
-    <div class="card"><span class="tag">Stays out of the way</span><h3>Vanilla controls</h3><p>It only watches the game&#x27;s own lamp and night-vision toggles; nothing new to learn.</p></div>
-    <div class="card"><span class="tag">Updates</span><h3>In-game, with LunarLink</h3><p>It names its GitHub releases, so LunarLink&#x27;s F9 UPDATES tab can install new versions.</p></div>
+    <div class="card"><span class="tag">Remembers</span><h3>Helmet lighting</h3><p>Off, Flashlight, or Night Vision comes back once the mode has settled.</p></div>
+    <div class="card"><span class="tag">Per vehicle</span><h3>Lights and suction</h3><p>Each vehicle keeps its own lights and adjustable suction preference.</p></div>
+    <div class="card"><span class="tag">Driving</span><h3>Boost lock</h3><p>Left Shift toggles a per-vehicle boost lock that survives braking, stopping, and exiting.</p></div>
+    <div class="card"><span class="tag">Updates</span><h3>In-game, with LunarLink</h3><p>Its GitHub releases appear in LunarLink&#x27;s F9 UPDATES tab for hot updates.</p></div>
   </div>
 </section>
 
@@ -110,12 +110,25 @@
   <h2>How it remembers</h2>
   <div class="diagram"><pre class="mermaid">
 flowchart LR
-  t["You toggle the lamp<br/>or night vision"] --> w{"Same mode for<br/>a moment?"}
-  w -- "no (still switching)" --> t
-  w -- "yes" --> s["Saved to<br/>BepInEx/config/<br/>WhoLeftTheLightOn.preferences"]
-  s -. "next launch" .-> r["Your character is in the world"]
-  r --> a["The saved mode is<br/>switched back on"]
+  t["You change lighting or<br/>a vehicle preference"] --> w{"State is ready?"}
+  w -- "no (still changing)" --> t
+  w -- "yes" --> s["Saved locally in<br/>BepInEx/config/"]
+  s -. "next launch or vehicle spawn" .-> r["The player or vehicle is ready"]
+  r --> a["The saved preference<br/>is restored"]
 </pre></div>
+</section>
+
+<section>
+  <h2>Settings</h2>
+  <p class="sub">All four functional settings default to on. They appear in the expanded Who Left The Light On row in LunarLink and compatible mod-manager settings screens.</p>
+  <div class="tablebox"><table>
+    <tr><th>Setting</th><th>What it does</th></tr>
+    <tr><td><b>Remember Helmet Lighting</b></td><td>Restores Off, Flashlight, or Night Vision.</td></tr>
+    <tr><td><b>Remember Vehicle Lights</b></td><td>Remembers each vehicle's lights independently.</td></tr>
+    <tr><td><b>Remember Vehicle Suction</b></td><td>Remembers each vehicle's adjustable suction setting independently.</td></tr>
+    <tr><td><b>Vehicle Boost Lock</b></td><td>Left Shift toggles persistent boost mode for the current vehicle.</td></tr>
+    <tr><td><b>Clear Remembered Vehicle Settings</b></td><td>One-shot reset: apply it once to clear stored vehicle lights, suction, and boost preferences.</td></tr>
+  </table></div>
 </section>
 
 <section>

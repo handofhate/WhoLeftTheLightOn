@@ -23,6 +23,7 @@
     <Reference Include="Il2Cppmscorlib" HintPath="$(InteropDir)\Il2Cppmscorlib.dll" Private="false" />
     <Reference Include="Assembly-CSharp" HintPath="$(InteropDir)\Assembly-CSharp.dll" Private="false" />
     <Reference Include="UnityEngine.CoreModule" HintPath="$(InteropDir)\UnityEngine.CoreModule.dll" Private="false" />
+    <Reference Include="Unity.InputSystem" HintPath="$(InteropDir)\Unity.InputSystem.dll" Private="false" />
   </ItemGroup>
 
   <Target Name="CopyToGame" AfterTargets="Build" Condition="'$(CopyToGame)' == 'true'">

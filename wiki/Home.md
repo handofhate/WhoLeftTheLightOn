@@ -1,16 +1,17 @@
 # Who Left The Light On?
 
-> **LunarLink compatible.** Who Left The Light On? runs on its own, and with [LunarLink](https://swheettaos.github.io/lunarlink/) it runs hot: reload it, turn it off (unloaded from memory) and update it from the game's F9 window, with no restart. See [[With LunarLink]].
+> **LunarLink compatible.** Who Left The Light On? runs on its own, and with [LunarLink](https://swheettaos.github.io/lunarlink/) it runs hot: reload it, turn it off, and update it from the game's F9 window without restarting. See [[With LunarLink]].
 
-**Remembers your last flashlight or night-vision mode between game launches**, and switches it back on once your
-character is in the world.
+Who Left The Light On? remembers helmet lighting and per-vehicle preferences in Moon Sweepers:
 
-Moon Sweepers has three light modes: **off**, **flashlight** and **night vision**. The game forgets which one you were
-using every time you quit. This mod remembers.
+- **Helmet lighting:** Off, Flashlight, or Night Vision.
+- **Vehicle lights:** remembered independently for each vehicle, including before mounting.
+- **Vehicle suction:** adjustable suction remembered independently for each vehicle.
+- **Vehicle Boost Lock:** Left Shift toggles persistent boost mode per vehicle; braking, stopping, and exiting do not clear it.
 
 - **[[Installing]]**: what you need, and where it goes
-- **[[How It Works]]**: what's remembered, and when it comes back
-- **[[With LunarLink]]**: run it hot, and update it from the game
+- **[[How It Works]]**: what is remembered and when it comes back
+- **[[With LunarLink]]**: run it hot, configure it, and update it from the game
 - **[[Troubleshooting]]**
 - **[[Changelog]]** · **[[Contributing]]**
 

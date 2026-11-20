@@ -12,14 +12,15 @@ Only you install it: it runs on your own game, and other players don't need it.
 1. Download the zip from [Nexus Mods](https://www.nexusmods.com/moonsweepers/mods/157) or the [latest GitHub release](https://github.com/handofhate/WhoLeftTheLightOn/releases/latest).
 2. Close the game and unzip it into the game folder (the one that holds `BepInEx/`). You get
    `BepInEx/plugins/WhoLeftTheLightOn/WhoLeftTheLightOn.dll`. A mod manager such as Vortex does this for you.
-3. Start the game. The BepInEx log (`BepInEx/LogOutput.log`) says "Who Left The Light On? x.y.z loaded".
+3. Start the game. The BepInEx log (`BepInEx/LogOutput.log`) says "Who Left The Light On? 1.0.0 loaded".
 
 To run it hot with LunarLink instead, see [[With LunarLink]].
 
 ## Updating
 
-Unzip the new version over the old one with the game closed, or let your mod manager update it. With LunarLink, F9 →
-UPDATES does it in place without a restart ([[With LunarLink]]).
+Unzip the new version over the old one with the game closed, or let your mod manager update it. The settings are stored
+in `BepInEx/config/tylerun.moonsweepers.wholeftthelighton.cfg`. With LunarLink, F9 → UPDATES does it in place without
+a restart ([[With LunarLink]]).
 
 ## Uninstalling
 
